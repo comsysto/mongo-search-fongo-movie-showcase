@@ -13,12 +13,6 @@ targetCompatibility = 1.6
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
 
-buildscript {
-    repositories {
-        mavenCentral()
-    }
-}
-
 repositories {
     mavenCentral()
     mavenRepo(url: 'http://maven.springsource.org/release')
@@ -44,10 +38,6 @@ configurations.all {
                 "org.springframework:spring-expression:$springVersion",
                 "org.springframework:spring-jdbc:$springVersion",
                 "org.springframework:spring-parent:$springVersion",
-                "org.springframework:spring-security-acl:$springSecurityVersion",
-                "org.springframework:spring-security-core:$springSecurityVersion",
-                "org.springframework:spring-security-crypto:$springSecurityVersion",
-                "org.springframework:spring-security-web:$springSecurityVersion",
                 "org.springframework:spring-tx:$springVersion",
                 "org.springframework:spring-web:$springVersion",
                 "org.springframework:spring-webmvc:$springVersion",
@@ -58,7 +48,6 @@ configurations.all {
                 "junit:junit:$junitVersion"
     }
     all*.exclude group: "org.mortbay.jetty"
-    all*.exclude group: "tomcat"
 }
 
 subprojects {
@@ -77,10 +66,6 @@ subprojects {
             "org.springframework:spring-context-support:$springVersion",
             "org.springframework:spring-web:$springVersion",
             "org.springframework:spring-webmvc:$springVersion",
-            "org.springframework.security:spring-security-core:$springSecurityVersion",
-            "org.springframework.security:spring-security-web:$springSecurityVersion",
-            "org.springframework.security:spring-security-config:$springSecurityVersion",
-            "org.springframework.security:spring-security-acl:$springSecurityVersion",
             "org.springframework.data:spring-data-mongodb:$springDataMongoVersion",
     ]
 
@@ -90,6 +75,7 @@ subprojects {
             "org.apache.wicket:wicket-auth-roles:$wicketVersion",
             "org.apache.wicket:wicket-extensions:$wicketVersion",
             "org.apache.wicket:wicket-native-websocket-jetty:$wicketWebSocketVersion",
+            "org.wicketstuff:wicketstuff-annotation:$wicketstuffVersion",
     ]
 
     ext.testDeps = [

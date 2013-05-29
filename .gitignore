@@ -2,6 +2,7 @@ classes/
 build/
 target/
 logs/
+lib/
 .gradle/
 .idea/
 .history/

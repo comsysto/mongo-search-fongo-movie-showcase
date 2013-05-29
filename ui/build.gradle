@@ -1,0 +1,42 @@
+apply plugin: 'war'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+
+
+idea {
+    module {
+        name='playground-ui'
+    }
+}
+
+repositories {
+    mavenCentral()
+    mavenRepo(url: 'http://maven.springsource.org/release')
+    mavenRepo(url: 'http://repo.springsource.org/milestone')
+    mavenRepo(url: 'http://maven.restlet.org')
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDir 'src/main/resources'
+            srcDir 'src/main/webapp'
+            srcDir 'src/main/java'
+        }
+    }
+    test {
+        resources {
+            srcDir 'src/test/resources'
+            srcDir 'src/test/java'
+        }
+    }
+}
+
+
+dependencies {
+    compile mongoDeps
+    compile wicketDeps
+    compile springDeps
+
+    testCompile testDeps
+}

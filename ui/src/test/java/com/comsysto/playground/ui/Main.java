@@ -1,4 +1,4 @@
-package com.comsysto.playground.repository;
+package com.comsysto.playground.ui;
 
 public class Main {
 
