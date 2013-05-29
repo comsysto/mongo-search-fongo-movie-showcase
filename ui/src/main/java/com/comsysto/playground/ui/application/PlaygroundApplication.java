@@ -15,7 +15,7 @@ public class PlaygroundApplication extends WebApplication {
     protected void init() {
         super.init();
 
-        new AnnotatedMountScanner().scanPackage("com.comsysto.ui.page").mount(this);
+        new AnnotatedMountScanner().scanPackage("com.comsysto.playground.ui.page").mount(this);
 
         getMarkupSettings().setStripWicketTags(true);
         getRequestCycleSettings().setRenderStrategy(IRequestCycleSettings.RenderStrategy.REDIRECT_TO_RENDER);

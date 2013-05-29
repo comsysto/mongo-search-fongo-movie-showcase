@@ -37,4 +37,16 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         retrievedMovies = movieService.findAll();
         assertEquals(0, retrievedMovies.size());
     }
+
+    @Test
+    public void testImportMovies() {
+
+        movieService.deleteAll();
+
+        movieService.importMovies();
+
+        List<Movie> retrievedMovies = movieService.findAll();
+
+        assertNotSame(0, retrievedMovies.size());
+    }
 }
