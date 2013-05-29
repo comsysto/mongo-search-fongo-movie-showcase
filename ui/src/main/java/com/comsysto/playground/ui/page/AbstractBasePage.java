@@ -1,6 +1,15 @@
 package com.comsysto.playground.ui.page;
 
-import com.sun.webpane.platform.WebPage;
+import org.apache.wicket.markup.head.CssHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.StringHeaderItem;
+import org.apache.wicket.markup.html.WebMarkupContainer;
+import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.model.IModel;
+import org.apache.wicket.request.cycle.RequestCycle;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
+import org.apache.wicket.util.string.interpolator.MapVariableInterpolator;
 
 import java.awt.*;
 import java.util.Collections;
@@ -28,11 +37,6 @@ public abstract class AbstractBasePage extends WebPage {
     public AbstractBasePage() {
         super();
         initialize();
-    }
-
-    @Override
-    public void renderHead(IHeaderResponse response) {
-        super.renderHead(response);
     }
 
     protected String getContextPath() {

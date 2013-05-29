@@ -2,6 +2,12 @@ package com.comsysto.playground.ui.application;
 
 
 import com.comsysto.playground.ui.page.home.HomePage;
+import org.apache.wicket.Page;
+import org.apache.wicket.protocol.http.WebApplication;
+import org.apache.wicket.settings.IRequestCycleSettings;
+import org.apache.wicket.settings.def.JavaScriptLibrarySettings;
+import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
+import org.wicketstuff.annotation.scan.AnnotatedMountScanner;
 
 public class PlaygroundApplication extends WebApplication {
 
