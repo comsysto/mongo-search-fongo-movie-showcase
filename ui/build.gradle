@@ -38,5 +38,7 @@ dependencies {
     compile wicketDeps
     compile springDeps
 
+    compile project(':service')
+
     testCompile testDeps
 }
