@@ -68,7 +68,16 @@ public class MovieServiceImpl implements MovieService {
 
                 for(MovieDb result: results.getResults()) {
 
-                    Movie movie = Movie.Builder.create(result.getTitle()).withGenre(genre.getName()).build();
+                    String yearString = result.getReleaseDate().split("-")[0];
+                    int year = 0;
+                    if (yearString.length() >0) {
+                        year = Integer.valueOf(yearString);
+                    }
+
+                    Movie movie = Movie.Builder.create(result.getTitle())
+                            .withGenre(genre.getName())
+                            .withYear(year)
+                            .build();
 
                     movieRepository.save(movie);
 

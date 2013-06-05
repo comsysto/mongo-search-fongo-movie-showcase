@@ -85,6 +85,7 @@ subprojects {
             "org.eclipse.jetty:jetty-http:$jettyVersion",
             "org.springframework:spring-test:$springVersion",
             "junit:junit:$junitVersion",
+            "com.foursquare:fongo:1.0.8",
     ]
 
 }
