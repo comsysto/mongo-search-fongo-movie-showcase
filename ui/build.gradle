@@ -47,5 +47,5 @@ dependencies {
 
 [jettyRun, jettyRunWar]*.with {
     httpPort = 8080
-    contextPath="playground"
+    contextPath="movie"
 }

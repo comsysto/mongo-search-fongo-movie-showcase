@@ -3,6 +3,7 @@ package com.comsysto.playground.ui.panel;
 import com.comsysto.playground.repository.model.Movie;
 import com.comsysto.playground.repository.query.MovieQuery;
 import com.comsysto.playground.service.api.MovieService;
+import com.comsysto.playground.ui.customcomponent.CheckBoxColumn;
 import org.apache.wicket.Component;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DefaultDataTable;
@@ -99,8 +100,18 @@ public class MovieListPanel extends Panel {
         columns.add(new PropertyColumn<Movie, String>(new Model("Title"), "title", "title"));
         columns.add(new PropertyColumn<Movie, String>(new Model("Genre"), "genre", "genre"));
         columns.add(new PropertyColumn<Movie, String>(new Model("Year"), "year", "year"));
-        columns.add(new PropertyColumn<Movie, String>(new Model("AW"), "alreadyWatched", "alreadyWatched"));
-        columns.add(new PropertyColumn<Movie, String>(new Model("LTW"), "likeToWatch", "likeToWatch"));
+        columns.add(new CheckBoxColumn<Movie, String>(new Model("AW"), "alreadyWatched") {
+            @Override
+            protected IModel<Boolean> newCheckBoxModel(IModel<Movie> rowModel) {
+                return Model.of(rowModel.getObject().isAlreadyWatched());
+            }
+        });
+        columns.add(new CheckBoxColumn<Movie, String>(new Model("LW"), "likeToWatch") {
+            @Override
+            protected IModel<Boolean> newCheckBoxModel(IModel<Movie> rowModel) {
+                return Model.of(rowModel.getObject().isLikeToWatch());
+            }
+        });
 
         DataTable<Movie, String> dataTable = new DefaultDataTable<Movie, String>("movieList", columns, dataProvider, 15);
         return dataTable;

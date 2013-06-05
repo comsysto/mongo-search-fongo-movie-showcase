@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * User: christian.kroemer@comsysto.com
@@ -73,6 +74,9 @@ public class MovieServiceImpl implements MovieService {
 
             TmdbResultsList<Genre> genreList = tmdb.getGenreList("");
 
+
+            Random rnd = new Random();
+
             for (Genre genre : genreList.getResults()) {
 
                 TmdbResultsList<MovieDb> results = tmdb.getGenreMovies(genre.getId(), "", 0, true);
@@ -85,11 +89,18 @@ public class MovieServiceImpl implements MovieService {
                         year = Integer.valueOf(yearString);
                     }
 
-                    Movie movie = Movie.Builder.create(result.getTitle())
+                    Movie.Builder movieBuilder = Movie.Builder.create(result.getTitle())
                             .withGenre(genre.getName())
-                            .withYear(year)
-                            .build();
+                            .withYear(year);
 
+                    if (rnd.nextBoolean()) {
+                        movieBuilder.withAlreadyWatched();
+                    }
+                    else if (rnd.nextBoolean()) {
+                        movieBuilder.withLikeToWatch();
+                    }
+
+                    Movie movie = movieBuilder.build();
                     movieRepository.save(movie);
 
                     System.out.println(result);
