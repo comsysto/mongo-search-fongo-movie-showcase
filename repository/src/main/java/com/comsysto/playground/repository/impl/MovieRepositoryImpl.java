@@ -8,7 +8,6 @@ import com.mongodb.BasicDBObject;
 import com.mongodb.CommandResult;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
@@ -31,7 +30,7 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @PostConstruct
     public void createTextIndex() {
-        // make sure the index is set up properly (not yet possible via Spring Data)
+        // make sure the index is set up properly (not yet possible via Spring Data Annotations)
         mongoOperations.getCollection(Movie.COLLECTION_NAME).ensureIndex(new BasicDBObject("title", "text"));
     }
 
@@ -67,15 +66,14 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Override
     public long countForQuery(MovieQuery query) {
+        Criteria criteria = mapSimpleQueryCriteria(query);
         if (query.getTitleFullTextSearch() != null) {
-            return countForFullTextSearchQuery(query);
+            CommandResult commandResult = executeFullTextSearch(query.getTitleFullTextSearch(), criteria);
+            return extractSearchResultCount(commandResult);
         }
-        return mongoOperations.count(mapQuery(query), clazz);
-    }
-
-    private long countForFullTextSearchQuery(MovieQuery query) {
-        // for all we know mongo full text search does not yet support a count method
-        return findByFullTextSearchQuery(query).size();
+        else {
+            return mongoOperations.count(Query.query(criteria), clazz);
+        }
     }
 
     @Override
@@ -85,68 +83,21 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     @Override
     public List<Movie> findByQuery(MovieQuery query) {
+        Criteria criteria = mapSimpleQueryCriteria(query);
+        Query mongoQuery;
         if (query.getTitleFullTextSearch() != null) {
-            return findByFullTextSearchQuery(query);
+            CommandResult commandResult = executeFullTextSearch(query.getTitleFullTextSearch(), criteria);
+            Collection<ObjectId> searchResultIds = extractSearchResultIds(commandResult);
+            mongoQuery = Query.query(Criteria.where("_id").in(searchResultIds));
         }
-        return mongoOperations.find(mapQuery(query), clazz);
+        else {
+            mongoQuery = Query.query(criteria);
+        }
+        applySortAndPagination(query, mongoQuery);
+        return mongoOperations.find(mongoQuery, clazz);
     }
 
-    private List<Movie> findByFullTextSearchQuery(MovieQuery query) {
-        CommandResult commandResult = executeFullTextSearch(query.getTitleFullTextSearch(), mapQuery(query));
-        Collection<ObjectId> searchResultIds = extractSearchResultIds(commandResult);
-        Criteria criteria = Criteria.where("_id").in(searchResultIds);
-        Query objectIdQuery = Query.query(criteria);
-        applySortAndPagination(query, objectIdQuery);
-        return mongoOperations.find(objectIdQuery, clazz);
-    }
-
-    private CommandResult executeFullTextSearch(String searchString, Query filter) {
-        BasicDBObject textSearch = new BasicDBObject();
-        textSearch.put("text", Movie.COLLECTION_NAME);
-        textSearch.put("search", searchString);
-        textSearch.put("filter", filter.getQueryObject());
-        return mongoOperations.executeCommand(textSearch);
-    }
-
-    private Collection<ObjectId> extractSearchResultIds(CommandResult commandResult) {
-        Set<ObjectId> objectIds = new HashSet<ObjectId>();
-        BasicDBList resultList = (BasicDBList) commandResult.get("results");
-        Iterator<Object> it = resultList.iterator();
-        while (it.hasNext()) {
-            BasicDBObject resultContainer = (BasicDBObject) it.next();
-            BasicDBObject resultObject = (BasicDBObject) resultContainer.get("obj");
-            // resultObject now contains a representation of the object we want to retrieve
-            ObjectId resultId = (ObjectId) resultObject.get("_id");
-            objectIds.add(resultId);
-        }
-        return objectIds;
-    }
-
-    private List<Movie> retrieveSortedAndPaginatedResult(Collection<ObjectId> searchResultIds, Sort sort, long offset, long limit) {
-        Criteria criteria = Criteria.where("_id").in(searchResultIds);
-        Query query = Query.query(criteria);
-        if (offset != 0) {
-            query.skip((int) offset);
-        }
-        if (limit != 0) {
-            query.limit((int) limit);
-        }
-        if (sort != null) {
-            query.with(sort);
-        }
-        return mongoOperations.find(query, clazz);
-    }
-
-    private Query mapQuery(MovieQuery query) {
-        Query mappedQuery = mapQueryCriteria(query);
-        if (query.getTitleFullTextSearch() == null) {
-            applySortAndPagination(query, mappedQuery);
-        }
-        // otherwise ignore sort and pagination, this will be done later as mongo full text search always ranks by relevance
-        return mappedQuery;
-    }
-
-    private Query mapQueryCriteria(MovieQuery query) {
+    private Criteria mapSimpleQueryCriteria(MovieQuery query) {
         Criteria criteria = null;
 
         if (query.getGenre() != null) {
@@ -166,7 +117,7 @@ public class MovieRepositoryImpl implements MovieRepository {
             // use dummy in that case
             criteria = Criteria.where("title").exists(true);
         }
-        return Query.query(criteria);
+        return criteria;
     }
 
     private Criteria updateCriteria(Criteria criteria, String key, Object value) {
@@ -177,6 +128,33 @@ public class MovieRepositoryImpl implements MovieRepository {
             criteria.and(key).is(value);
         }
         return criteria;
+    }
+
+    private CommandResult executeFullTextSearch(String searchString, Criteria filterCriteria) {
+        BasicDBObject textSearch = new BasicDBObject();
+        textSearch.put("text", Movie.COLLECTION_NAME);
+        textSearch.put("search", searchString);
+        textSearch.put("filter", Query.query(filterCriteria).getQueryObject());
+        return mongoOperations.executeCommand(textSearch);
+    }
+
+    private Collection<ObjectId> extractSearchResultIds(CommandResult commandResult) {
+        Set<ObjectId> objectIds = new HashSet<ObjectId>();
+        BasicDBList resultList = (BasicDBList) commandResult.get("results");
+        Iterator<Object> it = resultList.iterator();
+        while (it.hasNext()) {
+            BasicDBObject resultContainer = (BasicDBObject) it.next();
+            BasicDBObject resultObject = (BasicDBObject) resultContainer.get("obj");
+            // resultObject now contains a representation of the object we want to retrieve
+            ObjectId resultId = (ObjectId) resultObject.get("_id");
+            objectIds.add(resultId);
+        }
+        return objectIds;
+    }
+
+    private long extractSearchResultCount(CommandResult commandResult) {
+        BasicDBObject statsContainer = (BasicDBObject) commandResult.get("stats");
+        return (Integer) statsContainer.get("nfound");
     }
 
     private Query applySortAndPagination(MovieQuery query, Query mappedQuery) {
