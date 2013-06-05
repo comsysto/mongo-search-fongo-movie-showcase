@@ -109,7 +109,7 @@ sub {
 }
 
 img {
-  width: auto\9;
+  width: auto;
   height: auto;
   max-width: 100%;
   vertical-align: middle;
@@ -2944,7 +2944,7 @@ table th[class*="span"],
      -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
           box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -webkit-background-clip: padding-box;
-     -moz-background-clip: padding;
+     -moz-background-clip: padding-box;
           background-clip: padding-box;
 }
 
@@ -5413,7 +5413,7 @@ input[type="submit"].btn.btn-mini {
      -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
           box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
   -webkit-background-clip: padding-box;
-     -moz-background-clip: padding;
+     -moz-background-clip: padding-box;
           background-clip: padding-box;
 }
 

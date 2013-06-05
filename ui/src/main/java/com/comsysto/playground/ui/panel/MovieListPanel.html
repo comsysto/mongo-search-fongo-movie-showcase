@@ -5,12 +5,15 @@
 <wicket:head/>
 <body>
 <wicket:panel>
-    <form class="form-horizontal" wicket:id="movieListFilterForm">
-        <label class="control-label">Search in Movie Titles</label>
-        <input wicket:id="searchString" type="text"/>
-        <input type="submit" value="Search"/>
+
+    <form class="input-append offset1" style="margin-top: 20px" wicket:id="movieListFilterForm">
+        <input type="text" class="span5" style="height: 44px; font-size: 20px" placeholder="Search in movie titles..." wicket:id="searchString">
+        <button type="submit" class="btn" style="height: 44px; width: 120px">
+            <i class="icon-search"></i>
+            Search
+        </button>
     </form>
-    <table class="table">
+    <table class="table span8">
         <colgroup>
             <col width="50%" />
             <col width="20%" />
