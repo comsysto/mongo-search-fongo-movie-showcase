@@ -57,19 +57,19 @@ public abstract class AbstractBasePage extends WebPage {
         MapVariableInterpolator variableInterpolator = new MapVariableInterpolator(FAVICON_HEADER, replacements);
         response.render(StringHeaderItem.forString(variableInterpolator.toString()));
 
-        response.render(CssHeaderItem.forUrl(contextPath + "/assetsBuildFromCommon/css/bootstrap.css"));
-        response.render(CssHeaderItem.forUrl(contextPath + "/assetsBuildFromCommon/css/bootstrap-responsive.css"));
+        response.render(CssHeaderItem.forUrl(contextPath + "/css/bootstrap.css"));
+        response.render(CssHeaderItem.forUrl(contextPath + "/css/bootstrap-responsive.css"));
 
-        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/assetsBuildFromCommon/js/bootstrap-modal.js"));
-        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/assetsBuildFromCommon/js/bootstrap-dropdown.js"));
-        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/assetsBuildFromCommon/js/bootstrap-scrollspy.js"));
-        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/assetsBuildFromCommon/js/bootstrap-tab.js"));
-        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/assetsBuildFromCommon/js/bootstrap-tooltip.js"));
-        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/assetsBuildFromCommon/js/bootstrap-popover.js"));
-        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/assetsBuildFromCommon/js/bootstrap-alert.js"));
-        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/assetsBuildFromCommon/js/bootstrap-button.js"));
-        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/assetsBuildFromCommon/js/bootstrap-carousel.js"));
-        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/assetsBuildFromCommon/js/bootstrap-typeahead.js"));
+        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/js/bootstrap-modal.js"));
+        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/js/bootstrap-dropdown.js"));
+        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/js/bootstrap-scrollspy.js"));
+        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/js/bootstrap-tab.js"));
+        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/js/bootstrap-tooltip.js"));
+        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/js/bootstrap-popover.js"));
+        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/js/bootstrap-alert.js"));
+        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/js/bootstrap-button.js"));
+        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/js/bootstrap-carousel.js"));
+        response.render(JavaScriptHeaderItem.forUrl(contextPath + "/js/bootstrap-typeahead.js"));
 
 
     }

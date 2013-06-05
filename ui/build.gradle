@@ -1,6 +1,7 @@
 apply plugin: 'war'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
+apply plugin: 'jetty'
 
 
 idea {
@@ -37,8 +38,14 @@ dependencies {
     compile mongoDeps
     compile wicketDeps
     compile springDeps
+    compile jettyDeps
 
     compile project(':service')
 
     testCompile testDeps
+}
+
+[jettyRun, jettyRunWar]*.with {
+    httpPort = 8080
+    contextPath="playground"
 }

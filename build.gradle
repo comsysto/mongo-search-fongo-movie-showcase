@@ -78,11 +78,14 @@ subprojects {
             "org.wicketstuff:wicketstuff-annotation:$wicketstuffVersion",
     ]
 
-    ext.testDeps = [
+    ext.jettyDeps = [
             "org.eclipse.jetty.aggregate:jetty-all-server:$jettyVersion",
             "org.eclipse.jetty.orbit:javax.servlet:3.0.0.v201112011016@jar",
             "org.eclipse.jetty:jetty-continuation:$jettyVersion",
             "org.eclipse.jetty:jetty-http:$jettyVersion",
+    ]
+
+    ext.testDeps = [
             "org.springframework:spring-test:$springVersion",
             "junit:junit:$junitVersion",
             "com.foursquare:fongo:1.0.8",
