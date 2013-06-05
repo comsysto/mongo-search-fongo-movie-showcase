@@ -2,6 +2,7 @@ package com.comsysto.playground.service.impl;
 
 import com.comsysto.playground.repository.api.MovieRepository;
 import com.comsysto.playground.repository.model.Movie;
+import com.comsysto.playground.repository.query.MovieQuery;
 import com.comsysto.playground.service.api.MovieService;
 import com.omertron.themoviedbapi.MovieDbException;
 import com.omertron.themoviedbapi.TheMovieDbApi;
@@ -34,8 +35,18 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    public long countForQuery(MovieQuery query) {
+        return movieRepository.countForQuery(query);
+    }
+
+    @Override
     public List<Movie> findAll() {
         return movieRepository.findAll();
+    }
+
+    @Override
+    public List<Movie> findByQuery(MovieQuery query) {
+        return movieRepository.findByQuery(query);
     }
 
     @Override

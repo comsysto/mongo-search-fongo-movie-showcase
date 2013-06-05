@@ -89,6 +89,7 @@ subprojects {
             "org.springframework:spring-test:$springVersion",
             "junit:junit:$junitVersion",
             "com.foursquare:fongo:1.0.8",
+            //"com.lordofthejars:nosqlunit-mongodb:0.7.6",
     ]
 
 }

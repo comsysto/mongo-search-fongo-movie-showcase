@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd ">
+<wicket:head/>
+<body>
+<wicket:panel>
+    <form class="form-horizontal" wicket:id="movieListFilterForm">
+        <label class="control-label">Search in Movie Titles</label>
+        <input wicket:id="searchString" type="text"/>
+        <input type="submit" value="Search"/>
+    </form>
+    <table class="table">
+        <colgroup>
+            <col width="50%" />
+            <col width="20%" />
+            <col width="10%" />
+            <col width="5%" />
+            <col width="5%" />
+        </colgroup>
+        <div wicket:id="movieList"/>
+    </table>
+</wicket:panel>
+</body>
+</html>

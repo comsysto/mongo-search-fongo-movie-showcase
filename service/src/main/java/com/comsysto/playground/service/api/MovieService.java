@@ -1,6 +1,7 @@
 package com.comsysto.playground.service.api;
 
 import com.comsysto.playground.repository.model.Movie;
+import com.comsysto.playground.repository.query.MovieQuery;
 
 import java.util.List;
 
@@ -12,9 +13,12 @@ import java.util.List;
 public interface MovieService {
 
     long countAll();
+    long countForQuery(MovieQuery query);
     List<Movie> findAll();
+    List<Movie> findByQuery(MovieQuery query);
     void save(Movie object);
     void delete(Movie object);
     void deleteAll();
     void importMovies();
+
 }
