@@ -1,21 +1,4 @@
-apply plugin: 'war'
-apply plugin: 'eclipse'
-apply plugin: 'idea'
 apply plugin: 'jetty'
-
-
-idea {
-    module {
-        name='playground-ui'
-    }
-}
-
-repositories {
-    mavenCentral()
-    mavenRepo(url: 'http://maven.springsource.org/release')
-    mavenRepo(url: 'http://repo.springsource.org/milestone')
-    mavenRepo(url: 'http://maven.restlet.org')
-}
 
 sourceSets {
     main {
