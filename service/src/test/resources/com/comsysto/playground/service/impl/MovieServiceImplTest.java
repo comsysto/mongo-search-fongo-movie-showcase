@@ -1,16 +1,22 @@
 package com.comsysto.playground.service.impl;
 
 import com.comsysto.playground.repository.model.Movie;
+import com.comsysto.playground.repository.query.MovieQuery;
 import com.comsysto.playground.service.api.MovieService;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
+import java.math.BigInteger;
 import java.util.List;
+import java.util.Random;
 
-import static junit.framework.Assert.*;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertNotSame;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * User: christian.kroemer@comsysto.com
@@ -26,7 +32,10 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testCreateFindAndDeleteMovie() {
-        Movie movie = Movie.Builder.create("Movie").build();
+        // not required when using fongo!
+        movieService.deleteAll();
+
+        Movie movie = Movie.MovieBuilder.create("Movie").build();
         movieService.save(movie);
         List<Movie> retrievedMovies = movieService.findAll();
 
@@ -40,13 +49,81 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testImportMovies() {
-
+        // not required when using fongo!
         movieService.deleteAll();
 
         movieService.importMovies();
 
         List<Movie> retrievedMovies = movieService.findAll();
-
         assertNotSame(0, retrievedMovies.size());
+    }
+
+    @Test
+    public void testFindByQuery() {
+        // not required when using fongo!
+        movieService.deleteAll();
+
+        Movie movie1 = randomMovie("", "Action", true);
+        Movie movie2 = randomMovie("", "No Action", true);
+        Movie movie3 = randomMovie("", "No Action", false);
+        Movie movie4 = randomMovie("", "Action", true);
+        Movie movie5 = randomMovie("", "Action", false);
+
+        movieService.save(movie1);
+        movieService.save(movie2);
+        movieService.save(movie3);
+        movieService.save(movie4);
+        movieService.save(movie5);
+
+        MovieQuery query = MovieQuery.MovieQueryBuilder.create()
+                .withGenre("Action")
+                .withAlreadyWatched(true)
+                .build();
+
+        List<Movie> queryResult = movieService.findByQuery(query);
+
+        assertEquals(2, queryResult.size());
+        String firstResultTitle = queryResult.get(0).getTitle();
+        String secondResultTitle = queryResult.get(1).getTitle();
+        assertTrue((firstResultTitle.equals(movie1.getTitle()) && secondResultTitle.equals(movie4.getTitle()))
+            || firstResultTitle.equals(movie4.getTitle()) && secondResultTitle.equals(movie1.getTitle()));
+    }
+
+    @Ignore // full text search does not work with fongo
+    @Test
+    public void testFindByQueryFullTextSearch() {
+        // not required when using fongo!
+        movieService.deleteAll();
+
+        Movie movie1 = randomMovie("Searching", "Action", true);
+        Movie movie2 = randomMovie("", "No Action", true);
+        Movie movie3 = randomMovie("", "No Action", false);
+        Movie movie4 = randomMovie("", "Action", true);
+        Movie movie5 = randomMovie("", "Action", false);
+
+        movieService.save(movie1);
+        movieService.save(movie2);
+        movieService.save(movie3);
+        movieService.save(movie4);
+        movieService.save(movie5);
+
+        MovieQuery query = MovieQuery.MovieQueryBuilder.create()
+                .withTitleFullTextSearch("search") // make sure stemming works
+                .withGenre("Action")
+                .withAlreadyWatched(true)
+                .build();
+
+        List<Movie> queryResult = movieService.findByQuery(query);
+
+        assertEquals(1, queryResult.size());
+        assertTrue(queryResult.get(0).getTitle().equals(movie1.getTitle()));
+    }
+
+    private Movie randomMovie(String partOfTitle, String genre, boolean alreadyWatched) {
+        Random random = new Random();
+        return Movie.MovieBuilder.create(partOfTitle+" Random "+new BigInteger(20, random).toString(32))
+                .withGenre(genre)
+                .withAlreadyWatched(alreadyWatched)
+                .build();
     }
 }

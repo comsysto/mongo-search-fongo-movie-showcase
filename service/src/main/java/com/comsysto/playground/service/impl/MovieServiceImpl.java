@@ -89,15 +89,15 @@ public class MovieServiceImpl implements MovieService {
                         year = Integer.valueOf(yearString);
                     }
 
-                    Movie.Builder movieBuilder = Movie.Builder.create(result.getTitle())
+                    Movie.MovieBuilder movieBuilder = Movie.MovieBuilder.create(result.getTitle())
                             .withGenre(genre.getName())
                             .withYear(year);
 
                     if (rnd.nextBoolean()) {
-                        movieBuilder.withAlreadyWatched();
+                        movieBuilder.withAlreadyWatched(true);
                     }
                     else if (rnd.nextBoolean()) {
-                        movieBuilder.withLikeToWatch();
+                        movieBuilder.withLikeToWatch(true);
                     }
 
                     Movie movie = movieBuilder.build();

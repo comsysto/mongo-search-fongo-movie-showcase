@@ -89,45 +89,45 @@ public class Movie implements Serializable {
         this.likeToWatch = likeToWatch;
     }
 
-    public static class Builder {
+    public static class MovieBuilder {
 
         private Movie movie = new Movie();
 
-        private Builder(String title) {
+        private MovieBuilder(String title) {
             movie.title = title;
         };
 
-        public static Builder create(String title) {
-            return new Builder(title);
+        public static MovieBuilder create(String title) {
+            return new MovieBuilder(title);
         }
 
-        public Builder withDescription(String description) {
+        public MovieBuilder withDescription(String description) {
             movie.description = description;
             return this;
         }
 
-        public Builder withGenre(String genre) {
+        public MovieBuilder withGenre(String genre) {
             movie.genre = genre;
             return this;
         }
 
-        public Builder withActors(List<String> actors) {
+        public MovieBuilder withActors(List<String> actors) {
             movie.actors = actors;
             return this;
         }
 
-        public Builder withYear(int year) {
+        public MovieBuilder withYear(int year) {
             movie.year = year;
             return this;
         }
 
-        public Builder withAlreadyWatched() {
-            movie.alreadyWatched = true;
+        public MovieBuilder withAlreadyWatched(boolean flag) {
+            movie.alreadyWatched = flag;
             return this;
         }
 
-        public Builder withLikeToWatch() {
-            movie.likeToWatch = true;
+        public MovieBuilder withLikeToWatch(boolean flag) {
+            movie.likeToWatch = flag;
             return this;
         }
 
