@@ -5,6 +5,8 @@ import com.comsysto.playground.repository.query.MovieQuery;
 import com.comsysto.playground.service.api.MovieService;
 import com.comsysto.playground.ui.customcomponent.CheckBoxColumn;
 import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.extensions.ajax.markup.html.IndicatingAjaxButton;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.DefaultDataTable;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
@@ -38,6 +40,24 @@ public class MovieListPanel extends Panel {
         super(id);
         add(movieListFilterForm());
         add(movieList());
+        add(movieImportForm());
+    }
+
+    private Component movieImportForm() {
+        Form form = new Form("movieImportForm");
+        form.add(new IndicatingAjaxButton("movieImportButton") {
+
+            @Override
+            protected void onSubmit(AjaxRequestTarget target, Form<?> form)
+            {
+                movieService.deleteAll();
+                movieService.importMovies();
+                target.add(getPage());
+            }
+
+        });
+
+        return form;
     }
 
     private Component movieListFilterForm() {

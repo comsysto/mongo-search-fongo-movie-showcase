@@ -71,7 +71,6 @@ public class MovieServiceImpl implements MovieService {
             TheMovieDbApi tmdb = new TheMovieDbApi(API_KEY);
 
             //TmdbResultsList<MovieDb> results = tmdb.getNowPlayingMovies("", 0);
-
             TmdbResultsList<Genre> genreList = tmdb.getGenreList("");
 
 
