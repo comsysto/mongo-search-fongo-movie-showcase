@@ -14,9 +14,7 @@ import java.math.BigInteger;
 import java.util.List;
 import java.util.Random;
 
-import static junit.framework.Assert.assertEquals;
-import static junit.framework.Assert.assertNotSame;
-import static junit.framework.Assert.assertTrue;
+import static junit.framework.Assert.*;
 
 /**
  * User: christian.kroemer@comsysto.com
@@ -47,6 +45,7 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         assertEquals(0, retrievedMovies.size());
     }
 
+    @Ignore // takes too long to run during build
     @Test
     public void testImportMovies() {
         // not required when using fongo!
