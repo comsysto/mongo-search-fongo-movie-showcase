@@ -32,3 +32,6 @@ dependencies {
     httpPort = 8080
     contextPath="movie"
 }
+[jettyRun, jettyRunWar]*.doFirst {
+    System.setProperty("spring.profiles.active", "default")
+}

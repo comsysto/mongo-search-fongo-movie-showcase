@@ -7,6 +7,7 @@ import org.junit.Ignore;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.DirtiesContext;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.AbstractJUnit4SpringContextTests;
 
@@ -21,7 +22,8 @@ import static junit.framework.Assert.*;
  * Date: 5/29/13
  * Time: 4:40 PM
  */
-@ContextConfiguration(locations = "classpath:com/comsysto/playground/service/spring-test-context.xml")
+@ContextConfiguration(locations = "classpath:com/comsysto/playground/service/spring-context.xml")
+@ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
 

@@ -8,6 +8,7 @@ public class JettyStart {
             return;
         }
 
+        System.setProperty("spring.profiles.active", "default");
         JettyStarterApplication jettyStarter = new JettyStarterApplication(Integer.valueOf(args[0]));
         jettyStarter.startServer();
     }
