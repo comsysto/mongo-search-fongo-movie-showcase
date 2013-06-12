@@ -74,7 +74,7 @@ public class MovieServiceImpl implements MovieService {
             int counter = 0;
 
             int numPages = numberOfMovies/20+1;
-            for (int page=1; page<=numPages && counter<numberOfMovies; page++) {
+            for (int page=1; page<=numPages; page++) {
                 URL url = new URL("http://api.themoviedb.org/3/discover/movie?api_key="+API_KEY+"&page="+page);
                 InputStream is = url.openStream();
                 ByteArrayOutputStream os = new ByteArrayOutputStream();
@@ -91,6 +91,10 @@ public class MovieServiceImpl implements MovieService {
                 }
 
                 for (DBObject movieObject : movieList) {
+                    if (counter>=numberOfMovies) {
+                        break;
+                    }
+
                     String title = movieObject.get("title").toString();
                     String yearString = movieObject.get("release_date").toString().split("-")[0];
 
