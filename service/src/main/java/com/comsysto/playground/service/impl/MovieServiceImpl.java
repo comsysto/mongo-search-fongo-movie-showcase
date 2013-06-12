@@ -113,68 +113,6 @@ public class MovieServiceImpl implements MovieService {
                     movieRepository.save(movie);
                     counter++;
                 }
-
-
-
-/*
-                TmdbResultsList<MovieDb> moviePage = tmdb.getDiscover(new Discover().page(page));
-                if (moviePage.getResults().isEmpty()) {
-                    break;
-                }
-                for(MovieDb result: moviePage.getResults()) {
-
-                    String yearString = result.getReleaseDate().split("-")[0];
-                    int year = 0;
-                    if (yearString.length() >0) {
-                        year = Integer.valueOf(yearString);
-                    }
-
-                    Movie.MovieBuilder movieBuilder = Movie.MovieBuilder.create(result.getTitle())
-//                            .withGenre(result.getGenres().get(0).getName())
-                            .withYear(year);
-
-                    if (rnd.nextBoolean()) {
-                        movieBuilder.withAlreadyWatched(true);
-                    }
-                    else if (rnd.nextBoolean()) {
-                        movieBuilder.withLikeToWatch(true);
-                    }
-
-                    Movie movie = movieBuilder.build();
-                    movieRepository.save(movie);
-                }
-            }
-            TmdbResultsList<Genre> genreList = tmdb.getGenreList("");
-
-            for (Genre genre : genreList.getResults()) {
-
-                TmdbResultsList<MovieDb> results = tmdb.getGenreMovies(genre.getId(), "", 0, true);
-
-                for(MovieDb result: results.getResults()) {
-
-                    String yearString = result.getReleaseDate().split("-")[0];
-                    int year = 0;
-                    if (yearString.length() >0) {
-                        year = Integer.valueOf(yearString);
-                    }
-
-                    Movie.MovieBuilder movieBuilder = Movie.MovieBuilder.create(result.getTitle())
-                            .withGenre(genre.getName())
-                            .withYear(year);
-
-                    if (rnd.nextBoolean()) {
-                        movieBuilder.withAlreadyWatched(true);
-                    }
-                    else if (rnd.nextBoolean()) {
-                        movieBuilder.withLikeToWatch(true);
-                    }
-
-                    Movie movie = movieBuilder.build();
-                    movieRepository.save(movie);
-
-                    System.out.println(result);
-                }
-            */
             }
 
         } catch (IOException e) {
