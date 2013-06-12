@@ -12,8 +12,7 @@ compileTestJava.options.encoding = 'UTF-8'
 //load version from the root folder
 def props = new Properties();
 file("gradle.properties").withInputStream { props.load(it) }
-props.each({ ext[it.key] = it.value })
-
+props.each({ project.ext[it.key] = it.value })
 
 subprojects {
 
