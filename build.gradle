@@ -5,7 +5,6 @@ apply plugin: 'idea'
 group = 'com.comsysto'
 sourceCompatibility = 1.6
 targetCompatibility = 1.6
-project = null
 
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
@@ -13,7 +12,7 @@ compileTestJava.options.encoding = 'UTF-8'
 //load version from the root folder
 def props = new Properties();
 file("gradle.properties").withInputStream { props.load(it) }
-props.each({ project.ext[it.key] = it.value })
+props.each({ ext[it.key] = it.value })
 
 
 subprojects {
