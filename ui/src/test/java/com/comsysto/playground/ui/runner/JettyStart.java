@@ -1,4 +1,4 @@
-package com.comsysto.playground.ui.jetty;
+package com.comsysto.playground.ui.runner;
 
 public class JettyStart {
 

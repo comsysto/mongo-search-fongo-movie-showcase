@@ -1,4 +1,4 @@
-package com.comsysto.playground.ui.jetty;
+package com.comsysto.playground.ui.runner;
 
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
