@@ -28,8 +28,6 @@ fongoVersion            = "1.0.8"
 nosqlunitVersion        = "0.7.6"
 log4JVersion            = "1.2.17"
 
-org.gradle.daemon       = true
-org.gradle.jvmargs      = "-Xmx512m"
 
 subprojects {
 
