@@ -16,7 +16,7 @@
     </bean>
 
     <beans profile="default">
-        <mongo:mongo id="mongo" host="localhost">
+        <mongo:mongo id="mongo" host="mongodb://VyGGTZdfmdPe:caFRCqRdjZGp@dbs001.mongosoup.de/cc_VyGGTZdfmdPe">
             <mongo:options auto-connect-retry="true"
                            threads-allowed-to-block-for-connection-multiplier="20"/>
         </mongo:mongo>
