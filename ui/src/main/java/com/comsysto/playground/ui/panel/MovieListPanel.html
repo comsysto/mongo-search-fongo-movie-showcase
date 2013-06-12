@@ -18,11 +18,10 @@
     <br /><br />
     <table class="table">
         <colgroup>
-            <col width="60%" />
-            <col width="20%" />
+            <col width="70%" />
             <col width="10%" />
-            <col width="5%" />
-            <col width="5%" />
+            <col width="10%" />
+            <col width="10%" />
         </colgroup>
         <div wicket:id="movieList"/>
     </table>
@@ -33,6 +32,7 @@
     <br />
     <div class="text-center">
         <form wicket:id="movieImportForm">
+            <input type="number" width="100" wicket:id="movieImportCounter"/><br>
             <button class="btn" wicket:id="movieImportButton">Fresh Import</button>
         </form>
     </div>

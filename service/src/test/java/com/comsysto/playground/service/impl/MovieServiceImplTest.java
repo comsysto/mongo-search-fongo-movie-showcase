@@ -23,7 +23,7 @@ import static junit.framework.Assert.*;
  * Time: 4:40 PM
  */
 @ContextConfiguration(locations = "classpath:com/comsysto/playground/service/spring-context.xml")
-@ActiveProfiles("default")
+@ActiveProfiles("test")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
 
@@ -58,13 +58,11 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         assertEquals(5, retrievedMovies.size());
     }
 
-    @Ignore // takes too long, only used for importing data
+    @Ignore // takes too long, only used for importing data (use default profile!)
     @Test
     public void testLargeImportMovies() {
         movieService.deleteAll();
-
         movieService.importMovies(100000);
-
         List<Movie> retrievedMovies = movieService.findAll();
         assertEquals(100000, retrievedMovies.size());
     }
