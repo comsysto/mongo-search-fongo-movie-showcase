@@ -23,6 +23,4 @@ dependencies {
     compile project(':repository')
 
     testCompile testDeps
-
-    compile files('lib/moviedb_api/themoviedbapi-3.6.jar')
 }

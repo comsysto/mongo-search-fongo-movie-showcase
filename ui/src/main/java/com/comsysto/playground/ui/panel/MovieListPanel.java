@@ -51,7 +51,7 @@ public class MovieListPanel extends Panel {
             protected void onSubmit(AjaxRequestTarget target, Form<?> form)
             {
                 movieService.deleteAll();
-                movieService.importMovies();
+                movieService.importMovies(100);
                 target.add(getPage());
             }
 
@@ -118,7 +118,7 @@ public class MovieListPanel extends Panel {
 
         List<IColumn<Movie, String>> columns = new ArrayList<IColumn<Movie, String>>(5);
         columns.add(new PropertyColumn<Movie, String>(new Model("Title"), "title", "title"));
-        columns.add(new PropertyColumn<Movie, String>(new Model("Genre"), "genre", "genre"));
+        columns.add(new PropertyColumn<Movie, String>(new Model("Genre"), "year", "year"));
         columns.add(new PropertyColumn<Movie, String>(new Model("Year"), "year", "year"));
         columns.add(new CheckBoxColumn<Movie, String>(new Model("AW"), "alreadyWatched") {
             @Override

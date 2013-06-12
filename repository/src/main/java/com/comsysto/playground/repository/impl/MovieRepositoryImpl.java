@@ -100,9 +100,6 @@ public class MovieRepositoryImpl implements MovieRepository {
     private Criteria mapSimpleQueryCriteria(MovieQuery query) {
         Criteria criteria = null;
 
-        if (query.getGenre() != null) {
-            criteria = updateCriteria(criteria, "genre", query.getGenre());
-        }
         if (query.getYear() != null) {
             criteria = updateCriteria(criteria, "year", query.getYear());
         }

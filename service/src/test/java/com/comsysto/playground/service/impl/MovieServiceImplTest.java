@@ -53,7 +53,7 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         // not required when using fongo!
         movieService.deleteAll();
 
-        movieService.importMovies();
+        movieService.importMovies(10);
 
         List<Movie> retrievedMovies = movieService.findAll();
         assertNotSame(0, retrievedMovies.size());
@@ -64,20 +64,17 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         // not required when using fongo!
         movieService.deleteAll();
 
-        Movie movie1 = randomMovie("", "Action", true);
-        Movie movie2 = randomMovie("", "No Action", true);
-        Movie movie3 = randomMovie("", "No Action", false);
-        Movie movie4 = randomMovie("", "Action", true);
-        Movie movie5 = randomMovie("", "Action", false);
+        Movie movie1 = randomMovie("", true);
+        Movie movie2 = randomMovie("", false);
+        Movie movie3 = randomMovie("", false);
+        Movie movie4 = randomMovie("", true);
 
         movieService.save(movie1);
         movieService.save(movie2);
         movieService.save(movie3);
         movieService.save(movie4);
-        movieService.save(movie5);
 
         MovieQuery query = MovieQuery.MovieQueryBuilder.create()
-                .withGenre("Action")
                 .withAlreadyWatched(true)
                 .build();
 
@@ -96,21 +93,18 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         // not required when using fongo!
         movieService.deleteAll();
 
-        Movie movie1 = randomMovie("Searching", "Action", true);
-        Movie movie2 = randomMovie("", "No Action", true);
-        Movie movie3 = randomMovie("", "No Action", false);
-        Movie movie4 = randomMovie("", "Action", true);
-        Movie movie5 = randomMovie("", "Action", false);
+        Movie movie1 = randomMovie("Searching", true);
+        Movie movie2 = randomMovie("", false);
+        Movie movie3 = randomMovie("", false);
+        Movie movie4 = randomMovie("", true);
 
         movieService.save(movie1);
         movieService.save(movie2);
         movieService.save(movie3);
         movieService.save(movie4);
-        movieService.save(movie5);
 
         MovieQuery query = MovieQuery.MovieQueryBuilder.create()
                 .withTitleFullTextSearch("search") // make sure stemming works
-                .withGenre("Action")
                 .withAlreadyWatched(true)
                 .build();
 
@@ -120,10 +114,9 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         assertTrue(queryResult.get(0).getTitle().equals(movie1.getTitle()));
     }
 
-    private Movie randomMovie(String partOfTitle, String genre, boolean alreadyWatched) {
+    private Movie randomMovie(String partOfTitle, boolean alreadyWatched) {
         Random random = new Random();
         return Movie.MovieBuilder.create(partOfTitle+" Random "+new BigInteger(20, random).toString(32))
-                .withGenre(genre)
                 .withAlreadyWatched(alreadyWatched)
                 .build();
     }

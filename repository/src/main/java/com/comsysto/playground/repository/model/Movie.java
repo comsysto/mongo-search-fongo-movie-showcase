@@ -5,7 +5,6 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * User: christian.kroemer@comsysto.com
@@ -19,9 +18,6 @@ public class Movie implements Serializable {
     @Id
     private ObjectId id;
     private String title;
-    private String description;
-    private String genre;
-    private List<String> actors;
     private int year;
     private boolean alreadyWatched;
     private boolean likeToWatch;
@@ -39,30 +35,6 @@ public class Movie implements Serializable {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getGenre() {
-        return genre;
-    }
-
-    public void setGenre(String genre) {
-        this.genre = genre;
-    }
-
-    public List<String> getActors() {
-        return actors;
-    }
-
-    public void setActors(List<String> actors) {
-        this.actors = actors;
     }
 
     public int getYear() {
@@ -99,21 +71,6 @@ public class Movie implements Serializable {
 
         public static MovieBuilder create(String title) {
             return new MovieBuilder(title);
-        }
-
-        public MovieBuilder withDescription(String description) {
-            movie.description = description;
-            return this;
-        }
-
-        public MovieBuilder withGenre(String genre) {
-            movie.genre = genre;
-            return this;
-        }
-
-        public MovieBuilder withActors(List<String> actors) {
-            movie.actors = actors;
-            return this;
         }
 
         public MovieBuilder withYear(int year) {
