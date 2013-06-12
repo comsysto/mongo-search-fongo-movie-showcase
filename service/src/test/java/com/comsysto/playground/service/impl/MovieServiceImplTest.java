@@ -64,9 +64,9 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         // not required when using fongo!
         movieService.deleteAll();
 
-        Movie movie1 = randomMovie("", true);
+        Movie movie1 = randomMovie("I am Searching", true);
         Movie movie2 = randomMovie("", false);
-        Movie movie3 = randomMovie("", false);
+        Movie movie3 = randomMovie("I am Searching", false);
         Movie movie4 = randomMovie("", true);
 
         movieService.save(movie1);
@@ -75,16 +75,14 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         movieService.save(movie4);
 
         MovieQuery query = MovieQuery.MovieQueryBuilder.create()
+                .withTitleNoFullTextSearch("Searching")
                 .withAlreadyWatched(true)
                 .build();
 
         List<Movie> queryResult = movieService.findByQuery(query);
 
-        assertEquals(2, queryResult.size());
-        String firstResultTitle = queryResult.get(0).getTitle();
-        String secondResultTitle = queryResult.get(1).getTitle();
-        assertTrue((firstResultTitle.equals(movie1.getTitle()) && secondResultTitle.equals(movie4.getTitle()))
-            || firstResultTitle.equals(movie4.getTitle()) && secondResultTitle.equals(movie1.getTitle()));
+        assertEquals(1, queryResult.size());
+        assertTrue(queryResult.get(0).getTitle().equals(movie1.getTitle()));
     }
 
     @Ignore // full text search does not work with fongo
@@ -93,9 +91,9 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         // not required when using fongo!
         movieService.deleteAll();
 
-        Movie movie1 = randomMovie("Searching", true);
+        Movie movie1 = randomMovie("I am Searching", true);
         Movie movie2 = randomMovie("", false);
-        Movie movie3 = randomMovie("", false);
+        Movie movie3 = randomMovie("I am Searching", false);
         Movie movie4 = randomMovie("", true);
 
         movieService.save(movie1);
