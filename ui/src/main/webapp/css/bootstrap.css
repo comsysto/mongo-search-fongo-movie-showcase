@@ -232,7 +232,7 @@ textarea {
 }
 
 body {
-  padding-top: 130px;
+  padding-top: 30px;
   margin: 0;
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
@@ -826,6 +826,7 @@ h4 small {
   padding-bottom: 9px;
   margin: 20px 0 30px;
   border-bottom: 1px solid #eeeeee;
+  text-align: center;
 }
 
 ul,

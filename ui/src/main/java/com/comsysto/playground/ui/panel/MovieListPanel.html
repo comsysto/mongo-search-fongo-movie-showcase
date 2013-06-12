@@ -6,14 +6,17 @@
 <body>
 <wicket:panel>
 
-    <form class="input-append offset1" style="margin-top: 20px" wicket:id="movieListFilterForm">
-        <input type="text" class="span5" style="height: 44px; font-size: 20px" placeholder="Search in movie titles..." wicket:id="searchString">
-        <button type="submit" class="btn" style="height: 44px; width: 120px">
-            <i class="icon-search"></i>
-            Search
-        </button>
-    </form>
-    <table class="table span8">
+    <div class="text-center">
+        <form class="input-append" style="margin-top: 20px" wicket:id="movieListFilterForm">
+            <input type="text" class="span5" style="height: 44px; font-size: 20px" placeholder="Search in movie titles..." wicket:id="searchString">
+            <button type="submit" class="btn" style="height: 44px; width: 120px">
+                <i class="icon-search"></i>
+                Search
+            </button>
+        </form>
+    </div>
+    <br /><br />
+    <table class="table">
         <colgroup>
             <col width="60%" />
             <col width="20%" />
@@ -27,11 +30,13 @@
         AW = already watched<br>
         LW = like to watch<br>
     </p>
+    <br />
     <div class="text-center">
         <form wicket:id="movieImportForm">
             <button class="btn" wicket:id="movieImportButton">Fresh Import</button>
         </form>
     </div>
+    <br /><br />
 </wicket:panel>
 </body>
 </html>
