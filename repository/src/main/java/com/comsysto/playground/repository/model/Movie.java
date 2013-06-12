@@ -2,6 +2,7 @@ package com.comsysto.playground.repository.model;
 
 import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
@@ -17,9 +18,15 @@ public class Movie implements Serializable {
 
     @Id
     private ObjectId id;
+    @Indexed
     private String title;
+    @Indexed
+    private String description;
+    @Indexed
     private int year;
+    @Indexed
     private boolean alreadyWatched;
+    @Indexed
     private boolean likeToWatch;
 
     private Movie() {
@@ -31,6 +38,10 @@ public class Movie implements Serializable {
 
     public String getTitle() {
         return title;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public void setTitle(String title) {
@@ -71,6 +82,11 @@ public class Movie implements Serializable {
 
         public static MovieBuilder create(String title) {
             return new MovieBuilder(title);
+        }
+
+        public MovieBuilder withDescription(String description) {
+            movie.description = description;
+            return this;
         }
 
         public MovieBuilder withYear(int year) {

@@ -9,8 +9,8 @@ import org.springframework.data.domain.Sort;
  */
 public class MovieQuery {
 
-    private String titleNoFullTextSearch;
-    private String titleFullTextSearch;
+    private String descriptionNoFullTextSearch;
+    private String descriptionFullTextSearch;
     private Integer year;
     private Boolean alreadyWatched;
     private Boolean likeToWatch;
@@ -21,12 +21,12 @@ public class MovieQuery {
 
     private MovieQuery() {};
 
-    public String getTitleNoFullTextSearch() {
-        return titleNoFullTextSearch;
+    public String getDescriptionNoFullTextSearch() {
+        return descriptionNoFullTextSearch;
     }
 
-    public String getTitleFullTextSearch() {
-        return titleFullTextSearch;
+    public String getDescriptionFullTextSearch() {
+        return descriptionFullTextSearch;
     }
 
     public Integer getYear() {
@@ -64,13 +64,13 @@ public class MovieQuery {
             return new MovieQueryBuilder();
         }
 
-        public MovieQueryBuilder withTitleNoFullTextSearch(String searchString) {
-            query.titleNoFullTextSearch = searchString;
+        public MovieQueryBuilder withDescriptionNoFullTextSearch(String searchString) {
+            query.descriptionNoFullTextSearch = searchString;
             return this;
         }
 
-        public MovieQueryBuilder withTitleFullTextSearch(String searchString) {
-            query.titleFullTextSearch = searchString;
+        public MovieQueryBuilder withDescriptionFullTextSearch(String searchString) {
+            query.descriptionFullTextSearch = searchString;
             return this;
         }
 

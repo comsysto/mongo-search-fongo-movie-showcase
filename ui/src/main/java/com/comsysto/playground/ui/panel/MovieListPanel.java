@@ -13,6 +13,7 @@ import org.apache.wicket.extensions.markup.html.repeater.data.table.IColumn;
 import org.apache.wicket.extensions.markup.html.repeater.data.table.PropertyColumn;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortParam;
 import org.apache.wicket.extensions.markup.html.repeater.util.SortableDataProvider;
+import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.NumberTextField;
 import org.apache.wicket.markup.html.form.TextField;
@@ -36,6 +37,7 @@ public class MovieListPanel extends Panel {
     @SpringBean
     private MovieService movieService;
     private final IModel<String> searchStringModel = Model.of("");
+    private final IModel<Boolean> fullTextSearchCheckboxModel = Model.of(true);
 
     public MovieListPanel(String id) {
         super(id);
@@ -65,6 +67,7 @@ public class MovieListPanel extends Panel {
     private Component movieListFilterForm() {
         Form form = new Form("movieListFilterForm");
         form.add(new TextField("searchString", searchStringModel));
+        form.add(new CheckBox("fullTextSearchCheckbox", fullTextSearchCheckboxModel));
         return form;
     }
 
@@ -77,14 +80,18 @@ public class MovieListPanel extends Panel {
 
             private MovieQuery createQuery(long first, long count) {
                 MovieQuery query = MovieQuery.MovieQueryBuilder.create()
-                        .withTitleFullTextSearch(createFullTextSearchString())
+                        .withDescriptionFullTextSearch(createSearchString(!fullTextSearchCheckboxModel.getObject()))
+                        .withDescriptionNoFullTextSearch(createSearchString(fullTextSearchCheckboxModel.getObject()))
                         .withSort(createSortObject())
                         .withPagination(first, count)
                         .build();
                 return query;
             }
 
-            private String createFullTextSearchString() {
+            private String createSearchString(boolean alwaysReturnNull) {
+                if (alwaysReturnNull) {
+                    return null;
+                }
                 String searchString = null;
                 if (searchStringModel != null && searchStringModel.getObject() != null && !searchStringModel.getObject().isEmpty()) {
                     searchString = searchStringModel.getObject();
@@ -120,6 +127,7 @@ public class MovieListPanel extends Panel {
 
         List<IColumn<Movie, String>> columns = new ArrayList<IColumn<Movie, String>>(5);
         columns.add(new PropertyColumn<Movie, String>(new Model("Title"), "title", "title"));
+        columns.add(new PropertyColumn<Movie, String>(new Model("Description"), "description", "description"));
         columns.add(new PropertyColumn<Movie, String>(new Model("Year"), "year", "year"));
         columns.add(new CheckBoxColumn<Movie, String>(new Model("AW"), "alreadyWatched") {
             @Override

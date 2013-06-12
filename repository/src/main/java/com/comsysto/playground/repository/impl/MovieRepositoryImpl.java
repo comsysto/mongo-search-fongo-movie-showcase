@@ -31,7 +31,7 @@ public class MovieRepositoryImpl implements MovieRepository {
     @PostConstruct
     public void createTextIndex() {
         // make sure the index is set up properly (not yet possible via Spring Data Annotations)
-        mongoOperations.getCollection(Movie.COLLECTION_NAME).ensureIndex(new BasicDBObject("title", "text"));
+        mongoOperations.getCollection(Movie.COLLECTION_NAME).ensureIndex(new BasicDBObject("description", "text"));
     }
 
     @Override
@@ -67,8 +67,8 @@ public class MovieRepositoryImpl implements MovieRepository {
     @Override
     public long countForQuery(MovieQuery query) {
         Criteria criteria = mapSimpleQueryCriteria(query);
-        if (query.getTitleFullTextSearch() != null) {
-            CommandResult commandResult = executeFullTextSearch(query.getTitleFullTextSearch(), criteria);
+        if (query.getDescriptionFullTextSearch() != null) {
+            CommandResult commandResult = executeFullTextSearch(query.getDescriptionFullTextSearch(), criteria);
             return extractSearchResultCount(commandResult);
         }
         else {
@@ -85,8 +85,8 @@ public class MovieRepositoryImpl implements MovieRepository {
     public List<Movie> findByQuery(MovieQuery query) {
         Criteria criteria = mapSimpleQueryCriteria(query);
         Query mongoQuery;
-        if (query.getTitleFullTextSearch() != null) {
-            CommandResult commandResult = executeFullTextSearch(query.getTitleFullTextSearch(), criteria);
+        if (query.getDescriptionFullTextSearch() != null) {
+            CommandResult commandResult = executeFullTextSearch(query.getDescriptionFullTextSearch(), criteria);
             Collection<ObjectId> searchResultIds = extractSearchResultIds(commandResult);
             mongoQuery = Query.query(Criteria.where("_id").in(searchResultIds));
         }
@@ -100,8 +100,8 @@ public class MovieRepositoryImpl implements MovieRepository {
     private Criteria mapSimpleQueryCriteria(MovieQuery query) {
         Criteria criteria = null;
 
-        if (query.getTitleNoFullTextSearch() != null) {
-            criteria = Criteria.where("title").regex(query.getTitleNoFullTextSearch());
+        if (query.getDescriptionNoFullTextSearch() != null) {
+            criteria = Criteria.where("description").regex(query.getDescriptionNoFullTextSearch());
         }
         if (query.getYear() != null) {
             criteria = updateCriteria(criteria, "year", query.getYear());
@@ -135,6 +135,7 @@ public class MovieRepositoryImpl implements MovieRepository {
         textSearch.put("text", Movie.COLLECTION_NAME);
         textSearch.put("search", searchString);
         textSearch.put("filter", Query.query(filterCriteria).getQueryObject());
+        textSearch.put("limit", countAll());
         return mongoOperations.executeCommand(textSearch);
     }
 

@@ -7,21 +7,27 @@
 <wicket:panel>
 
     <div class="text-center">
-        <form class="input-append" style="margin-top: 20px" wicket:id="movieListFilterForm">
-            <input type="text" class="span5" style="height: 44px; font-size: 20px" placeholder="Search in movie titles..." wicket:id="searchString">
-            <button type="submit" class="btn" style="height: 44px; width: 120px">
-                <i class="icon-search"></i>
-                Search
-            </button>
+        <form style="margin-top: 20px" wicket:id="movieListFilterForm">
+            <div class="input-append">
+                <input type="text" class="span5" style="height: 44px; font-size: 20px" placeholder="Search in movie titles..." wicket:id="searchString">
+                <button type="submit" class="btn" style="height: 44px; width: 120px">
+                    <i class="icon-search"></i>
+                    Search
+                </button>
+            </div>
+            <br><br>
+            <input type="checkbox" wicket:id="fullTextSearchCheckbox"/>
+            <label>Use Mongo Full Text Search</label>
         </form>
     </div>
     <br /><br />
     <table class="table">
         <colgroup>
-            <col width="70%" />
+            <col width="25%" />
+            <col width="55%" />
             <col width="10%" />
-            <col width="10%" />
-            <col width="10%" />
+            <col width="5%" />
+            <col width="5%" />
         </colgroup>
         <div wicket:id="movieList"/>
     </table>

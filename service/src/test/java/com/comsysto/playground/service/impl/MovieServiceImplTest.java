@@ -83,7 +83,7 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         movieService.save(movie4);
 
         MovieQuery query = MovieQuery.MovieQueryBuilder.create()
-                .withTitleNoFullTextSearch("Searching")
+                .withDescriptionNoFullTextSearch("Searching")
                 .withAlreadyWatched(true)
                 .build();
 
@@ -110,7 +110,7 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         movieService.save(movie4);
 
         MovieQuery query = MovieQuery.MovieQueryBuilder.create()
-                .withTitleFullTextSearch("search") // make sure stemming works
+                .withDescriptionFullTextSearch("search") // make sure stemming works
                 .withAlreadyWatched(true)
                 .build();
 
@@ -120,9 +120,11 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         assertTrue(queryResult.get(0).getTitle().equals(movie1.getTitle()));
     }
 
-    private Movie randomMovie(String partOfTitle, boolean alreadyWatched) {
+    private Movie randomMovie(String partOfDescription, boolean alreadyWatched) {
         Random random = new Random();
-        return Movie.MovieBuilder.create(partOfTitle+" Random "+new BigInteger(20, random).toString(32))
+        return Movie.MovieBuilder.create(" Random "+new BigInteger(40, random).toString(32))
+                .withDescription(new BigInteger(2000, random).toString(32)+" "
+                        +partOfDescription+" "+new BigInteger(2000, random).toString(32))
                 .withAlreadyWatched(alreadyWatched)
                 .build();
     }
