@@ -1,1 +1,1 @@
-web: gradle jettyStart
+web: gradle jettyStart	
