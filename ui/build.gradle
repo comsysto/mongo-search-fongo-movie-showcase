@@ -1,5 +1,10 @@
 apply plugin: 'war'
 apply plugin: 'jetty'
+apply plugin:'application'
+
+// for application plugin
+mainClassName = "com.comsysto.playground.jetty.JettyStart"
+applicationName = "app"
 
 sourceSets {
     main {
@@ -36,3 +41,5 @@ dependencies {
 [jettyRun, jettyRunWar]*.doFirst {
     System.setProperty("spring.profiles.active", "default")
 }
+
+task stage(dependsOn: ['clean', 'installApp'])
