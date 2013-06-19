@@ -49,10 +49,8 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testImportMovies() {
-        // not required when using fongo!
-        movieService.deleteAll();
 
-        movieService.importMovies(5);
+        movieService.importMovies(5, true);
 
         List<Movie> retrievedMovies = movieService.findAll();
         assertEquals(5, retrievedMovies.size());
@@ -62,7 +60,7 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
     @Test
     public void testLargeImportMovies() {
         movieService.deleteAll();
-        movieService.importMovies(100000);
+        movieService.importMovies(100000, true);
         List<Movie> retrievedMovies = movieService.findAll();
         assertEquals(100000, retrievedMovies.size());
     }

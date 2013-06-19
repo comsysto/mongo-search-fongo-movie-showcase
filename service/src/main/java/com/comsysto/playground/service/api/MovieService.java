@@ -19,6 +19,6 @@ public interface MovieService {
     void save(Movie object);
     void delete(Movie object);
     void deleteAll();
-    void importMovies(int numberOfMovies);
+    void importMovies(int numberOfMovies, boolean dropOldEntries);
 
 }

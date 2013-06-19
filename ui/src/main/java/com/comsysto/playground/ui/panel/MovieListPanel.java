@@ -55,8 +55,7 @@ public class MovieListPanel extends Panel {
             @Override
             protected void onSubmit(AjaxRequestTarget target, Form<?> form)
             {
-                movieService.deleteAll();
-                movieService.importMovies(movieImportCounterModel.getObject());
+                movieService.importMovies(movieImportCounterModel.getObject(), true);
                 target.add(getPage());
             }
         });

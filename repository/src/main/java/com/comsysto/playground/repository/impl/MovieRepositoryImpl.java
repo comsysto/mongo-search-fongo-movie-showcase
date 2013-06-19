@@ -29,7 +29,7 @@ public class MovieRepositoryImpl implements MovieRepository {
     private Class<Movie> clazz = Movie.class;
 
     @PostConstruct
-    public void createTextIndex() {
+    public void ensureTextIndex() {
         // make sure the index is set up properly (not yet possible via Spring Data Annotations)
         mongoOperations.getCollection(Movie.COLLECTION_NAME).ensureIndex(new BasicDBObject("description", "text"));
     }
@@ -57,6 +57,8 @@ public class MovieRepositoryImpl implements MovieRepository {
     @Override
     public void dropCollection() {
         mongoOperations.dropCollection(clazz);
+        // make sure text index is present again after dropping
+        ensureTextIndex();
     }
 
     @Override

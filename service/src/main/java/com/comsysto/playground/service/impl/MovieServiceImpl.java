@@ -86,8 +86,11 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void importMovies (int numberOfMovies) {
+    public void importMovies (int numberOfMovies, boolean dropOldEntries) {
         try {
+            if (dropOldEntries) {
+                movieRepository.dropCollection();
+            }
             movieDBImporter.importMovies(numberOfMovies);
         } catch (IOException e) {
             e.printStackTrace();
