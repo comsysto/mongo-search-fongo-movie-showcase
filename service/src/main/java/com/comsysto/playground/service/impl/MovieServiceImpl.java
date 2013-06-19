@@ -31,7 +31,12 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public long countForQuery(MovieQuery query) {
-        return movieRepository.countForQuery(query);
+        long startTime = System.currentTimeMillis();
+        long result = movieRepository.countForQuery(query);
+        long durationMillis = System.currentTimeMillis() - startTime;
+
+        printDebugString("count "+result+":\t", query, durationMillis);
+        return result;
     }
 
     @Override
@@ -41,7 +46,28 @@ public class MovieServiceImpl implements MovieService {
 
     @Override
     public List<Movie> findByQuery(MovieQuery query) {
-        return movieRepository.findByQuery(query);
+        long startTime = System.currentTimeMillis();
+        List<Movie> result = movieRepository.findByQuery(query);
+        long durationMillis = System.currentTimeMillis() - startTime;
+
+        printDebugString("retrieve:\t",query, durationMillis);
+        System.out.println();
+        return result;
+    }
+
+    private void printDebugString(String prefix, MovieQuery query, long durationMillis) {
+        String debugString = "executed query ";
+        if (query.getDescriptionFullTextSearch() != null) {
+            debugString += "with full-text-search ";
+        }
+        else if (query.getDescriptionNoFullTextSearch() != null) {
+            debugString += "with non-full-text-search ";
+        }
+        else {
+            return;
+        }
+        debugString += "in "+durationMillis+"ms...";
+        System.out.println(prefix + debugString);
     }
 
     @Override
