@@ -51,7 +51,6 @@ public class MovieServiceImpl implements MovieService {
         long durationMillis = System.currentTimeMillis() - startTime;
 
         printDebugString("retrieve:\t",query, durationMillis);
-        System.out.println();
         return result;
     }
 

@@ -145,6 +145,10 @@ public class MovieRepositoryImpl implements MovieRepository {
     private Collection<ObjectId> extractSearchResultIds(CommandResult commandResult) {
         Set<ObjectId> objectIds = new HashSet<ObjectId>();
         BasicDBList resultList = (BasicDBList) commandResult.get("results");
+        if (resultList == null) {
+            System.out.println(mongoFullTextSearchErrorMessage());
+            return objectIds;
+        }
         Iterator<Object> it = resultList.iterator();
         while (it.hasNext()) {
             BasicDBObject resultContainer = (BasicDBObject) it.next();
@@ -157,6 +161,10 @@ public class MovieRepositoryImpl implements MovieRepository {
 
     private long extractSearchResultCount(CommandResult commandResult) {
         BasicDBObject statsContainer = (BasicDBObject) commandResult.get("stats");
+        if (statsContainer == null) {
+            System.out.println(mongoFullTextSearchErrorMessage());
+            return 0;
+        }
         return (Integer) statsContainer.get("nfound");
     }
 
@@ -171,6 +179,10 @@ public class MovieRepositoryImpl implements MovieRepository {
             mappedQuery.with(query.getSort());
         }
         return mappedQuery;
+    }
+
+    private String mongoFullTextSearchErrorMessage() {
+        return "### MongoDB Full Text Search does not work properly - cannot retrieve any results.";
     }
 
 }
