@@ -23,7 +23,7 @@ import static junit.framework.Assert.*;
  * Time: 4:40 PM
  */
 @ContextConfiguration(locations = "classpath:com/comsysto/movie/service/spring-context.xml")
-@ActiveProfiles("test")
+@ActiveProfiles("default")
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
 
@@ -32,7 +32,6 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testCreateFindAndDeleteMovie() {
-        // not required when using fongo!
         movieService.deleteAll();
 
         Movie movie = Movie.MovieBuilder.create("Movie").build();
@@ -56,18 +55,17 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         assertEquals(5, retrievedMovies.size());
     }
 
-    @Ignore // takes too long, only used for importing data (use default profile!)
+    @Ignore // takes too long, only used for importing data
     @Test
     public void testLargeImportMovies() {
         movieService.deleteAll();
-        movieService.importMovies(100000, true);
+        movieService.importMovies(10000, true);
         List<Movie> retrievedMovies = movieService.findAll();
-        assertEquals(100000, retrievedMovies.size());
+        assertEquals(10000, retrievedMovies.size());
     }
 
     @Test
     public void testFindByQuery() {
-        // not required when using fongo!
         movieService.deleteAll();
 
         Movie movie1 = randomMovie("I am Searching", true);
@@ -91,10 +89,8 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
         assertTrue(queryResult.get(0).getTitle().equals(movie1.getTitle()));
     }
 
-    @Ignore // full text search does not work with fongo
     @Test
     public void testFindByQueryFullTextSearch() {
-        // not required when using fongo!
         movieService.deleteAll();
 
         Movie movie1 = randomMovie("I am Searching", true);
