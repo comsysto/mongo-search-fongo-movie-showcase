@@ -138,6 +138,7 @@ public class MovieRepositoryImpl implements MovieRepository {
         textSearch.put("search", searchString);
         textSearch.put("filter", Query.query(filterCriteria).getQueryObject());
         textSearch.put("limit", countAll());
+        textSearch.put("project", new BasicDBObject("_id", 1));
         return mongoOperations.executeCommand(textSearch);
     }
 
@@ -148,7 +149,6 @@ public class MovieRepositoryImpl implements MovieRepository {
         while (it.hasNext()) {
             BasicDBObject resultContainer = (BasicDBObject) it.next();
             BasicDBObject resultObject = (BasicDBObject) resultContainer.get("obj");
-            // resultObject now contains a representation of the object we want to retrieve
             ObjectId resultId = (ObjectId) resultObject.get("_id");
             objectIds.add(resultId);
         }
