@@ -48,11 +48,12 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
 
     @Test
     public void testImportMovies() {
-
         movieService.importMovies(5, true);
 
         List<Movie> retrievedMovies = movieService.findAll();
         assertEquals(5, retrievedMovies.size());
+
+        movieService.deleteAll();
     }
 
     @Ignore // takes too long, only used for importing data
@@ -87,6 +88,8 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
 
         assertEquals(1, queryResult.size());
         assertTrue(queryResult.get(0).getTitle().equals(movie1.getTitle()));
+
+        movieService.deleteAll();
     }
 
     @Test
@@ -112,6 +115,8 @@ public class MovieServiceImplTest extends AbstractJUnit4SpringContextTests {
 
         assertEquals(1, queryResult.size());
         assertTrue(queryResult.get(0).getTitle().equals(movie1.getTitle()));
+
+        movieService.deleteAll();
     }
 
     private Movie randomMovie(String partOfDescription, boolean alreadyWatched) {
