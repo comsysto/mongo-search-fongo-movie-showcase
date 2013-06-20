@@ -1,7 +1,7 @@
 Playground
 ==========
 
-Our playground application for comSysto Blog (http://blog.comsysto.com) entries.
+Our movie playground application for comSysto Blog (http://blog.comsysto.com) entries.
 
 It will use Spring, Apache Wicket, Gradle and Mongo.
 

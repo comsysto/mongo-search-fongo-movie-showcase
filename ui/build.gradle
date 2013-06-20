@@ -3,7 +3,7 @@ apply plugin: 'jetty'
 apply plugin:'application'
 
 // for application plugin
-mainClassName = "com.comsysto.playground.jetty.JettyStart"
+mainClassName = "com.comsysto.movie.jetty.JettyStart"
 applicationName = "app"
 
 sourceSets {

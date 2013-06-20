@@ -6,7 +6,7 @@
         <filter-class>org.apache.wicket.protocol.ws.jetty.Jetty7WebSocketFilter</filter-class>
         <init-param>
             <param-name>applicationClassName</param-name>
-            <param-value>com.comsysto.playground.ui.application.PlaygroundApplication</param-value>
+            <param-value>com.comsysto.movie.ui.application.PlaygroundApplication</param-value>
         </init-param>
     </filter>
 
@@ -18,7 +18,7 @@
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
-            classpath:com/comsysto/playground/ui/spring-context.xml
+            classpath:com/comsysto/movie/ui/spring-context.xml
         </param-value>
     </context-param>
 
