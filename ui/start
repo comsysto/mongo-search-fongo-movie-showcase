@@ -1,2 +1,3 @@
+echo "Procfile called start to call ui/Procfile to call app"
 cd ui
 exec foreman start
