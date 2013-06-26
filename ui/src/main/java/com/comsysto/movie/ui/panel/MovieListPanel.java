@@ -37,7 +37,7 @@ public class MovieListPanel extends Panel {
     @SpringBean
     private MovieService movieService;
     private final IModel<String> searchStringModel = Model.of("");
-    private final IModel<Boolean> fullTextSearchCheckboxModel = Model.of(true);
+    private final IModel<Boolean> fullTextSearchCheckboxModel = Model.of(false);
 
     public MovieListPanel(String id) {
         super(id);

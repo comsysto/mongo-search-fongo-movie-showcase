@@ -1,1 +1,1 @@
-web: ./ui/install/app/bin/app
+web: ./ui/start

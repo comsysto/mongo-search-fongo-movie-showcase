@@ -1,12 +1,8 @@
-Mongo Search Fongo Movie Showcase
+Mongo Soup Movie Showcase
 ==========
 
-Our movie playground application for comSysto Blog (http://blog.comsysto.com) entries.
+Our movie playground application for comSysto Blog article How to get started with Mongo Soup (http://blog.comsysto.com/2013/05/29/how-to-get-started-with-mongosoup).
 
-It uses Spring, Apache Wicket, Gradle and Mongo to demonstrate how to use
-the new Mongo DB full text search feature and
-Fongo for Mongo in-memory testing.
-
-TODO: can we distribute the 99992movies.json file in repositoy/src/main/resources?
+It uses Spring, Apache Wicket, Gradle and MongoDB.
 
 Please mail comments to Christian.Kroemer@comsysto.com or Elisabeth.Engel@comsysto.com!
